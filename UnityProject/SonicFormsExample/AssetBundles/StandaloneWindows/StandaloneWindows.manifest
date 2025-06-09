@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 2334588982
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: exampleformsbundle
+      Dependencies: {}
