@@ -12,7 +12,26 @@ namespace ExampleFormsMod
             Internal.Content.AddEntityState(typeof(BungusState));
             Internal.Content.AddEntityState(typeof(WungusState));
             Internal.Content.AddEntityState(typeof(TransformationAnimation));
+
+            if (ExampleFormsPlugin.sonicModLoaded)
+            {
+                RegisterSonicStates();
+
+                if (ExampleFormsPlugin.ancientScepterLoaded)
+                {
+                    RegisterScepterStates();
+                }
+            }
+        }
+
+        internal static void RegisterSonicStates()
+        {
             Internal.Content.AddEntityState(typeof(WungusBoost));
+        }
+
+        internal static void RegisterScepterStates()
+        {
+            Internal.Content.AddEntityState(typeof(ScepterWungusBoost));
         }
     }
 }

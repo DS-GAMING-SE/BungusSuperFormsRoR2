@@ -19,7 +19,10 @@ namespace ExampleFormsMod
         [SystemInitializer(typeof(BodyCatalog))]
         internal static void AddSkillReplacerComponent()
         {
-            BodyCatalog.FindBodyPrefab("SonicTheHedgehog").AddComponent<SkillReplacer>();
+            if (ExampleFormsPlugin.sonicModLoaded)
+            {
+                BodyCatalog.FindBodyPrefab("SonicTheHedgehog").AddComponent<SkillReplacer>();
+            }
         }
 
         private FormComponent formComponent;

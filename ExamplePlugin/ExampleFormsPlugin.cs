@@ -1,23 +1,22 @@
 using BepInEx;
 using R2API;
 using HedgehogUtils;
-using RoR2;
-using SonicTheHedgehog.Modules;
-using System.Reflection;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ExampleFormsMod
 {
     // This is an example plugin that can be put in
-    // BepInEx/plugins/ExampleFormsMod/ExampleFormsMod.dll to test out.
+    // BepInEx/plugins/ExampleFormsMod/ExampleFormsMod.dll to test out. The assetbundle should also be put in the same folder as the dll
 
     // All Sonic related forms are built using the HedgehogUtils mod
     [BepInDependency(HedgehogUtilsPlugin.PluginGUID)]
 
-    // Having Sonic as a soft dependency means that our mod will load after the Sonic mod. This is important since we need to use stuff from the Sonic mod to make the..
-    // ..Sonic specific transformation effects, like the new skill upgrades
+    // Having Sonic as a soft dependency means that our mod will load after the Sonic mod. This is important since-
+    // -we need to use stuff from the Sonic mod to make the Sonic specific transformation effects, like the new skill upgrades
+    // The mod as a whole doesn't need the Sonic mod, just the extra things that it adds to the Sonic mod, so it's a soft dependency and not a hard dependency
+    // This mod will work without the Sonic mod installed
     [BepInDependency("com.ds_gaming.SonicTheHedgehog", BepInDependency.DependencyFlags.SoftDependency)]
+    // Same here but for StandaloneAncientScepter
+    [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
 
     // This one is because we use a .language file for language tokens
     // More info in https://risk-of-thunder.github.io/R2Wiki/Mod-Creation/Assets/Localization/
@@ -45,10 +44,19 @@ namespace ExampleFormsMod
 
         public const string Prefix = "DS_GAMING_EXAMPLE_FORMS_";
 
+        public static bool sonicModLoaded = false;
+        public static bool ancientScepterLoaded = false;
+
         // The Awake() method is run at the very start when the game is initialized.
         public void Awake()
         {
-            // Init our logging class so that we can properly log for debugging
+            // This checks if the Sonic mod is installed
+            // This mod is designed to run even if Sonic isn't installed
+            // Certain parts of the mod, such as Sonic's specific form upgrades, shouldn't be loaded if Sonic isn't installed
+            sonicModLoaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.ds_gaming.SonicTheHedgehog");
+            // Same here but for the StandaloneAncientScepter mod
+            ancientScepterLoaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.DestroyedClone.AncientScepter");
+
             Internal.Log.Init(Logger);
 
             Assets.Initialize();
@@ -63,7 +71,7 @@ namespace ExampleFormsMod
 
             Language.Initialize();
 
-            OnHooks.Initialize();
+            States.RegisterStates();
 
             new Internal.ContentPacks().Initialize();
         }

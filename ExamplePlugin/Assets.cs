@@ -57,7 +57,7 @@ namespace ExampleFormsMod
         public static void CreateMaterials()
         {
             // Here i'm copying and slightly modifying existing RoR2 materials to make overlays that will be put on survivors when transformed
-            // If you're interested in knowing where to find good RoR2 shaders, look into AssetRipper and -----
+            // If you're interested in knowing how to find good RoR2 shaders, look into AssetRipper and Addressable Asset Keys
             // If you're interested in making materials from scratch using RoR2 shaders, look into stubbed shaders and shader swapper
             bungusSuperFormOverlay = new Material(Addressables.LoadAssetAsync<Material>("RoR2/DLC1/EliteVoid/matEliteVoidOverlay.mat").WaitForCompletion());
             bungusSuperFormOverlay.SetTexture("_RemapTex", Addressables.LoadAssetAsync<Texture>("RoR2/Base/Common/ColorRamps/texRampLoaderSwing.png").WaitForCompletion());
@@ -75,17 +75,17 @@ namespace ExampleFormsMod
             wungusOutlineOverlay.SetColor("_TintColor", new Color(0.9f, 0.1f, 0.75f, 1));
             wungusOutlineOverlay.SetColor("_EmissionColor", new Color(0.9f, 0.1f, 0.75f, 0.5f));
 
-            // Creating the Wungus form's custom boost vfx using a helper method from the Sonic mod
+            // Creating the Wungus form's custom boost vfx using a method from HedgehogUtils
             wungusBoostAura = HedgehogUtils.Assets.CreateNewBoostAura(ExampleFormsPlugin.Prefix + "WUNGUS_BOOST_AURA", 1.15f, 0.7f,
-                new Color(0f, 0f, 0f),
-                new Color(1f, 0f, 1f),
-                new Color(1f, 0.8f, 1f),
-                new Color(1f, 0f, 1f));
+                new Color(0f, 0f, 0f), // Inner color
+                new Color(1f, 0f, 1f), // Middle color
+                new Color(1f, 0.8f, 1f), // Outer color
+                new Color(1f, 0f, 1f)); // Light
             wungusBoostFlash = HedgehogUtils.Assets.CreateNewBoostFlash(ExampleFormsPlugin.Prefix + "WUNGUS_BOOST_FLASH", 1.15f, 1.4f,
-                new Color(0f, 0f, 0f),
-                new Color(1f, 0f, 1f),
-                new Color(1f, 0.8f, 1f),
-                new Color(1f, 0f, 1f));
+                new Color(0f, 0f, 0f), // Inner color
+                new Color(1f, 0f, 1f), // Middle color
+                new Color(1f, 0.8f, 1f), // Outer color
+                new Color(1f, 0f, 1f)); // Light
         }
     }
 }

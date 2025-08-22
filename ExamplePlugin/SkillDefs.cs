@@ -15,6 +15,14 @@ namespace ExampleFormsMod
 
         public static void Initialize()
         {
+            if (ExampleFormsPlugin.sonicModLoaded)
+            {
+                CreateSonicWungusBoost();
+            }
+        }
+
+        private static void CreateSonicWungusBoost()
+        {
             // Use HedgehogUtils.CopySkillDef, HedgehogUtils.CopyBoostSkillDef, or SonicTheHedgehog.Modules.SkillDefs.CopyMeleeSkillDef to copy the existing skilldef so you don't accidentally change the original skilldef
             // This is using the CopyBoostSkillDef method to convert Sonic's BoostSkillDef into a RequiresFormBoostSkillDef
             // SkillDefs of the RequiresFormBoostSkillDef type will automatically remove themselves if the character using it is not currently in the given form
@@ -26,6 +34,11 @@ namespace ExampleFormsMod
             wungusBoost.activationState = new EntityStates.SerializableEntityStateType(typeof(MyEntityStates.WungusBoost));
             wungusBoost.requiredForm = FormDefs.wungusSuperFormDef;
             wungusBoost.boostHUDColor = new Color(1f, 0f, 1f);
+
+            if (ExampleFormsPlugin.ancientScepterLoaded)
+            {
+                AncientScepter.Initialize();
+            }
         }
     }
 }

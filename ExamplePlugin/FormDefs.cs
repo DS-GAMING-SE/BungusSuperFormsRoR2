@@ -3,7 +3,6 @@ using R2API;
 using RoR2;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using SonicTheHedgehog.Modules;
 using HedgehogUtils.Forms;
 using System;
 using EntityStates;
@@ -60,11 +59,6 @@ namespace ExampleFormsMod
                 new SerializableEntityStateType(typeof(MyEntityStates.TransformationAnimation)),
 
                 // A dictionary containing the material and mesh swaps for characters who have a unique change in appearance when transforming
-                /*new Dictionary<string, RenderReplacements>
-                {
-                    { "DS_GAMING_SONIC_THE_HEDGEHOG_BODY_DEFAULT_SKIN_NAME", new RenderReplacements { material = Materials.CreateHopooMaterial("matSuperSonic"), mesh = Assets.mainAssetBundle.LoadAsset<GameObject>("SuperSonicMesh").GetComponent<SkinnedMeshRenderer>().sharedMesh } },
-                    { "DS_GAMING_SONIC_THE_HEDGEHOG_BODY_MASTERY_SKIN_NAME", new RenderReplacements { material = Materials.CreateHopooMaterial("matSuperMetalSonic"), mesh = null } }
-                };*/
                 null,
 
                 // The type of FormHandler used to keep track of this form.
@@ -116,13 +110,12 @@ namespace ExampleFormsMod
                 new SerializableEntityStateType(typeof(MyEntityStates.WungusState)),
 
                 // The entity state for the transforming animation. Used on the Body state machine
-                new SerializableEntityStateType(), // Invalid entity state like this means there won't be a transformation animation
+                new SerializableEntityStateType(), // Invalid entity state like this means there won't be a transformation animation, the transformation will be instant
 
                 // A dictionary containing the material and mesh swaps for characters who have a unique change in appearance when transforming
-                new Dictionary<string, RenderReplacements>
-                {
-                    { "DS_GAMING_SONIC_THE_HEDGEHOG_BODY_DEFAULT_SKIN_NAME", new RenderReplacements { material = null, mesh = SonicTheHedgehog.Modules.Assets.superSonicMesh } }
-                },
+                // This mod is designed to work even if Sonic isn't installed
+                // If Sonic isn't installed, the RenderDictionary for him isn't made because we can't access his mesh
+                ExampleFormsPlugin.sonicModLoaded ? CreateSonicRenderDictionary() : null,
 
                 // The type of FormHandler used to keep track of this form
                 // Put FormHandler here unless you need to custom make a formhandler, usually for extra specific transforming requirements that aren't covered normally
@@ -140,6 +133,14 @@ namespace ExampleFormsMod
                 bungusSuperFormDef,
                 wungusSuperFormDef
             });
+        }
+
+        private static Dictionary<string, RenderReplacements> CreateSonicRenderDictionary()
+        {
+            return new Dictionary<string, RenderReplacements>
+                {
+                    { "DS_GAMING_SONIC_THE_HEDGEHOG_BODY_DEFAULT_SKIN_NAME", new RenderReplacements { material = null, mesh = SonicTheHedgehog.Modules.Assets.superSonicMesh } }
+                };
         }
 
         // We need to define what items we are going to use for our forms AFTER all the items have been loaded

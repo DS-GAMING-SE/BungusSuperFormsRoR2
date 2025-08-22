@@ -1,7 +1,6 @@
 ﻿using EntityStates;
 using RoR2;
 using RoR2.Audio;
-using SonicTheHedgehog.Components;
 using System;
 using Unity.Collections;
 using UnityEngine;
@@ -27,10 +26,12 @@ namespace ExampleFormsMod.MyEntityStates
         public override void OnExit()
         {
             RemoveOverlay(ref temporaryOverlay);
+
             if (notMovingOverlayApplied) // If you have the outline from not moving, remove it when the form ends
             {
                 RemoveOverlay(ref notMovingOverlay);
-            }
+            } // Feel free to delete this scetion about the not moving overlay if you're making your own form
+
             Flash(0.5f);
             base.OnExit();
         }
@@ -55,6 +56,7 @@ namespace ExampleFormsMod.MyEntityStates
                     RemoveOverlay(ref notMovingOverlay);
                 }
             } // Feel free to delete this scetion about the not moving overlay if you're making your own form
+
         }
     }
 }

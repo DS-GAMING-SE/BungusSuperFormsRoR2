@@ -1,7 +1,6 @@
 ﻿using EntityStates;
 using RoR2;
 using RoR2.Audio;
-using SonicTheHedgehog.Components;
 using HedgehogUtils.Forms;
 using System;
 using System.Reflection;
@@ -23,7 +22,7 @@ namespace ExampleFormsMod.MyEntityStates
         public override void OnEnter()
         {
             base.OnEnter();
-            Util.PlaySound("Play_voidman_m2_shoot", base.gameObject);
+            Util.PlaySound("Play_item_void_critGlasses", base.gameObject);
             Heal(1f);
             ApplyOverlay(ref temporaryOverlay, Assets.wungusSuperFormOverlay);
             Flash(0.5f);
@@ -39,10 +38,12 @@ namespace ExampleFormsMod.MyEntityStates
         public override void OnExit()
         {
             RemoveOverlay(ref temporaryOverlay);
-            if (sprintingOverlayApplied)
+
+            if (sprintingOverlayApplied) // If you have the outline from sprinting, remove it when the form ends
             {
                 RemoveOverlay(ref sprintingOverlay);
-            }
+            } // Feel free to delete this scetion about the sprinting overlay if you're making your own form
+
             Flash(0.5f);
 
             // Remember to remove infinite boost when exiting
@@ -56,7 +57,8 @@ namespace ExampleFormsMod.MyEntityStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (base.characterBody.isSprinting)
+
+            if (base.characterBody.isSprinting) // Adds an outline around you when you're sprinting
             {
                 if (!sprintingOverlayApplied)
                 {
@@ -71,7 +73,7 @@ namespace ExampleFormsMod.MyEntityStates
                     sprintingOverlayApplied = false;
                     RemoveOverlay(ref sprintingOverlay);
                 }
-            }
+            } // Feel free to delete this scetion about the sprinting overlay if you're making your own form
         }
     }
 }

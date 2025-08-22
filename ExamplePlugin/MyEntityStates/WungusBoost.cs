@@ -14,7 +14,7 @@ namespace ExampleFormsMod.MyEntityStates
         public override void OnEnter()
         {
             base.OnEnter();
-            if (base.modelLocator)
+            if (base.modelLocator) // This just makes the character tilt so they're always flat on the ground. Sonic does this in his normal state and all of his Boost states
             {
                 modelLocator.normalizeToFloor = true;
             }
@@ -32,15 +32,6 @@ namespace ExampleFormsMod.MyEntityStates
         protected override BuffDef buff
         {
             get { return FormBuffs.wungusBoostBuff; }
-        }
-
-        protected override float boostMeterDrain
-        {
-            get { return 0; }
-        }
-        protected override float boostStartMeterDrain
-        {
-            get { return 0; }
         }
 
         public override GameObject GetFlashPrefab()

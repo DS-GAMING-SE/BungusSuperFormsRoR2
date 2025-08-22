@@ -26,7 +26,7 @@ namespace ExampleFormsMod.MyEntityStates
             {
                 if (base.isAuthority)
                 {
-                    //EffectManager.SimpleEffect(Modules.Assets.transformationEmeraldSwirl, base.gameObject.transform.position, base.gameObject.transform.rotation, true);
+                    //EffectManager.SimpleEffect(SonicTheHedgehog.Modules.Assets.transformationEmeraldSwirl, base.gameObject.transform.position, base.gameObject.transform.rotation, true);
                 }
             }
 
@@ -41,7 +41,7 @@ namespace ExampleFormsMod.MyEntityStates
         public override void Transform()
         {
             base.Transform();
-            Util.PlaySound("Play_super_transform", base.gameObject);
+            Util.PlaySound("Play_hedgehogutils_super_transform", base.gameObject);
             base.cameraTargetParams.RemoveParamsOverride(this.camOverrideHandle, 0.2f);
         }
     }

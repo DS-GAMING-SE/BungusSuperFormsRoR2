@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2830000357
+CRC: 3826470149
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 044e477bbf94d45dcdeb509e5a083731
+    Hash: bef618a0777d8b3c43b1b532a94c1dbe
   TypeTreeHash:
     serializedVersion: 2
     Hash: c21d61fe394c58399df3c6fb5c7c99b3
@@ -15,5 +15,7 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/AssetBundle/Sprites/texWungusBuffIcon.png
+- Assets/AssetBundle/Sprites/texBungusBuffIcon.png
 - Assets/AssetBundle/Sprites/texWungusBoostIcon.png
 Dependencies: []
