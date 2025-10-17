@@ -1,6 +1,6 @@
 ﻿using BepInEx.Logging;
 
-namespace BungusSuperFormsMod.Internal
+namespace BungusSuperFormsMod
 {
     internal static class Log
     {

@@ -1,12 +1,13 @@
 ﻿{
-	"name": "MyFirstMod",
+	"name": "BungusSuperForms",
 	"version_number": "1.0.0",
-	"website_url": "",
-	"description": "My first Mod",
+	"website_url": "https://github.com/DS-GAMING-SE/BungusSuperFormsRoR2",
+	"description": "Adds transformations unlocked by stacking Bustling/Weeping Fungus",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.2108",
 		"RiskofThunder-HookGenPatcher-1.2.3",
-		"RiskofThunder-R2API_Items-1.0.1",
-		"RiskofThunder-R2API_Language-1.0.0"
+		"ds_gaming-HedgehogUtils-1.1.3",
+		"RiskofThunder-R2API_Language-1.0.0",
+		"RiskofThunder-R2API_RecalculateStats-1.4.0"
 	]
 }

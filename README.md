@@ -1,6 +1,6 @@
 # Bungus/Wungus Super Forms
 
-This mod adds two Super forms usable by any survivors. 
+This mod adds two Super forms usable by any survivors. The forms are usable once you've collected enough of their respective item. They can be activated by pressing **B** (Can be changed in the HedgehogUtils mod config) .
 ### Bungus
 The Bungus form can be activated once per stage if you have 7 or more Bustling Fungus. The form comes with the following effects...
 - Increases damage by 6% for each Bustling Fungus you own

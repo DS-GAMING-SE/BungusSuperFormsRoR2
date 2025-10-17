@@ -5,7 +5,6 @@ using System.IO;
 using R2API;
 using UnityEngine.AddressableAssets;
 using System.Reflection;
-using BungusSuperFormsMod.Internal;
 using HedgehogUtils;
 
 namespace BungusSuperFormsMod

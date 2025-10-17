@@ -13,16 +13,6 @@ namespace BungusSuperFormsMod.MyEntityStates
     // If you want Power Boosting, start from NewScepterBoost instead
     public class ScepterWungusBoost : SonicTheHedgehog.SkillStates.ScepterBoostBase
     {
-        public override void OnEnter()
-        {
-            base.OnEnter();
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-        }
-
         protected override BuffDef buff
         {
             get { return FormBuffs.wungusBoostBuff; }

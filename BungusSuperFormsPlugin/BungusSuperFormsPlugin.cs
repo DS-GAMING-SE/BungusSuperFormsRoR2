@@ -37,9 +37,9 @@ namespace BungusSuperFormsMod
         // If we see this PluginGUID as it is on thunderstore,
         // we will deprecate this mod.
         // Change the PluginAuthor, Prefix, and the PluginName !
-        public const string PluginGUID = "com.ds_gaming.BungusSuperForm";
+        public const string PluginGUID = "com.ds_gaming.BungusSuperForms";
         public const string PluginAuthor = "ds_gaming";
-        public const string PluginName = "BungusSuperForm";
+        public const string PluginName = "BungusSuperForms";
         public const string PluginVersion = "1.0.0";
 
         public const string Prefix = "DS_GAMING_BUNGUS_SUPER_FORMS_";
@@ -57,7 +57,7 @@ namespace BungusSuperFormsMod
             // Same here but for the StandaloneAncientScepter mod
             ancientScepterLoaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.DestroyedClone.AncientScepter");
 
-            Internal.Log.Init(Logger);
+            Log.Init(Logger);
 
             Assets.Initialize();
 
