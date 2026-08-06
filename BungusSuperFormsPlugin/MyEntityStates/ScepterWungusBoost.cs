@@ -24,7 +24,7 @@ namespace BungusSuperFormsMod.MyEntityStates
         }
         public override GameObject GetAuraPrefab()
         {
-            return Assets.wungusBoostAura;
+            return AncientScepter.scepterWungusBoostAura;
         }
 
         public override Material GetOverlayMaterial()

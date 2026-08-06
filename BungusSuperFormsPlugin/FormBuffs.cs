@@ -18,7 +18,7 @@ namespace BungusSuperFormsMod
         {
             bungusFormBuff = AddNewBuff("bdBungusForm",
                 Assets.mainAssetBundle.LoadAsset<Sprite>("texBungusBuffIcon"),
-                new Color(0.1f, 7f, 0.5f),
+                new Color(0.1f, 1f, 0.5f),
                 false,
                 false);
             wungusFormBuff = AddNewBuff("bdWungusForm",

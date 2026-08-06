@@ -7,6 +7,7 @@ using HedgehogUtils.Boost;
 using HedgehogUtils.Forms;
 using BungusSuperFormsMod.MyEntityStates;
 using AncientScepter;
+using RoR2.ContentManagement;
 
 
 namespace BungusSuperFormsMod
@@ -17,16 +18,21 @@ namespace BungusSuperFormsMod
     public static class AncientScepter
     {
         public static GameObject scepterWungusBoostFlash;
+        public static GameObject scepterWungusBoostAura;
 
         public static HedgehogUtils.Boost.SkillDefs.RequiresFormBoostSkillDef scepterWungusBoost;
 
         public static void Initialize()
         {
-            scepterWungusBoostFlash = HedgehogUtils.Assets.CreateNewBoostFlash(BungusSuperFormsPlugin.Prefix + "SCEPTER_WUNGUS_BOOST_FLASH", 1.15f, 1.4f,
-                new Color(0f, 0f, 0f), // Inner color
-                new Color(1f, 0f, 1f), // Middle color
-                new Color(1f, 0.8f, 1f), // Outer color
-                new Color(1f, 0f, 1f)); // Light
+            // A lot of RoR2 vfx uses what is referred to as a "remap" or "ramp" texture, which changes the colors of certain parts of a material based on its opacity
+            // If you want multi-colored boost vfx, I suggest looking to those
+            // For simpler boost vfx, you can skip the texture stuff and simply provide a color to the CreateBoostFlashEffect method
+            scepterWungusBoostFlash = HedgehogUtils.Assets.CreateBoostFlashEffect(BungusSuperFormsPlugin.Prefix + "SCEPTER_WUNGUS_BOOST_FLASH",
+                AssetAsyncReferenceManager<Texture>.LoadAsset(new UnityEngine.AddressableAssets.AssetReferenceT<Texture>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC1_VoidSurvivor.texRampVoidSurvivorCorrupted1_png)).WaitForCompletion(),
+                new Color(1f, 0.2f, 0f));
+            scepterWungusBoostAura = HedgehogUtils.Assets.CreateBoostAuraEffect(BungusSuperFormsPlugin.Prefix + "SCEPTER_WUNGUS_BOOST_AURA",
+                AssetAsyncReferenceManager<Texture>.LoadAsset(new UnityEngine.AddressableAssets.AssetReferenceT<Texture>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC1_VoidSurvivor.texRampVoidSurvivorCorrupted1_png)).WaitForCompletion(),
+                new Color(1f, 0.2f, 0f));
             SonicTheHedgehog.Modules.Assets.AddScepterToBoostFlash(scepterWungusBoostFlash);
 
             CreateScepterWungusBoost();
@@ -39,6 +45,7 @@ namespace BungusSuperFormsMod
             // Use HedgehogUtils.CopySkillDef, HedgehogUtils.CopyBoostSkillDef, or SonicTheHedgehog.Modules.SkillDefs.CopyMeleeSkillDef to copy the existing skilldef so you don't accidentally change the original skilldef
             // This is using the CopyBoostSkillDef method to convert Sonic's BoostSkillDef into a RequiresFormBoostSkillDef
             // SkillDefs of the RequiresFormBoostSkillDef type will automatically remove themselves if the character using it is not currently in the given form
+            // You can also use HedgehogUtils.Boost.SkillDefs.CreateBoostSkillDef to create a Boost SkillDef from scratch
             scepterWungusBoost = HedgehogUtils.Helpers.CopyBoostSkillDef<HedgehogUtils.Boost.SkillDefs.RequiresFormBoostSkillDef>(SkillDefs.wungusBoost);
             scepterWungusBoost.skillName = BungusSuperFormsPlugin.Prefix + "UTILITY_WUNGUS_BOOST_NAME";
             scepterWungusBoost.skillNameToken = BungusSuperFormsPlugin.Prefix + "UTILITY_WUNGUS_BOOST_NAME";

@@ -6,6 +6,7 @@ using R2API;
 using UnityEngine.AddressableAssets;
 using System.Reflection;
 using HedgehogUtils;
+using RoR2.ContentManagement;
 
 namespace BungusSuperFormsMod
 {
@@ -17,10 +18,12 @@ namespace BungusSuperFormsMod
         private const string dllName = "BungusSuperFormsMod.dll";
 
         internal static AssetBundle mainAssetBundle;
-        
+
+        public static GameObject bungusAura;
         public static Material bungusSuperFormOverlay;
         public static Material bungusOutlineOverlay;
 
+        public static GameObject wungusAura;
         public static Material wungusSuperFormOverlay;
         public static Material wungusOutlineOverlay;
 
@@ -30,6 +33,7 @@ namespace BungusSuperFormsMod
         {
             LoadAssetBundle();
             CreateMaterials();
+            CreateAuras();
         }
 
         // The assetbundle will contain assets made/imported through Unity, such as images, meshes, prefabs, etc.
@@ -75,16 +79,25 @@ namespace BungusSuperFormsMod
             wungusOutlineOverlay.SetColor("_EmissionColor", new Color(0.9f, 0.1f, 0.75f, 0.5f));
 
             // Creating the Wungus form's custom boost vfx using a method from HedgehogUtils
-            wungusBoostAura = HedgehogUtils.Assets.CreateNewBoostAura(BungusSuperFormsPlugin.Prefix + "WUNGUS_BOOST_AURA", 1.15f, 0.7f,
-                new Color(0f, 0f, 0f), // Inner color
-                new Color(1f, 0f, 1f), // Middle color
-                new Color(1f, 0.8f, 1f), // Outer color
-                new Color(1f, 0f, 1f)); // Light
-            wungusBoostFlash = HedgehogUtils.Assets.CreateNewBoostFlash(BungusSuperFormsPlugin.Prefix + "WUNGUS_BOOST_FLASH", 1.15f, 1.4f,
-                new Color(0f, 0f, 0f), // Inner color
-                new Color(1f, 0f, 1f), // Middle color
-                new Color(1f, 0.8f, 1f), // Outer color
-                new Color(1f, 0f, 1f)); // Light
+
+            // A lot of RoR2 vfx uses what is referred to as a "remap" or "ramp" texture, which changes the colors of certain parts of a material based on its opacity
+            // If you want multi-colored boost vfx, I suggest looking to those
+            // For simpler boost vfx, you can skip the texture stuff and simply provide a color to the CreateBoostFlashEffect method
+            wungusBoostAura = HedgehogUtils.Assets.CreateBoostAuraEffect(BungusSuperFormsPlugin.Prefix + "WUNGUS_BOOST_AURA",
+                AssetAsyncReferenceManager<Texture>.LoadAsset(new AssetReferenceT<Texture>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC1_VoidSurvivor.texRampVoidSurvivorBase1_png)).WaitForCompletion(),
+                new Color(0.9f, 0.1f, 1f));
+            wungusBoostFlash = HedgehogUtils.Assets.CreateBoostFlashEffect(BungusSuperFormsPlugin.Prefix + "WUNGUS_BOOST_FLASH",
+                AssetAsyncReferenceManager<Texture>.LoadAsset(new AssetReferenceT<Texture>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC1_VoidSurvivor.texRampVoidSurvivorBase1_png)).WaitForCompletion(),
+                new Color(0.9f, 0.1f, 1f));
+        }
+
+        public static void CreateAuras()
+        {
+            bungusAura = HedgehogUtils.Assets.CreateSuperAura("BungusAura", new Color(0.1f, 1f, 0.5f));
+            AssetAsyncReferenceManager<Texture>.LoadAsset(new AssetReferenceT<Texture>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC1_VoidSurvivor.texRampVoidSurvivorBase1_png)).Completed += (x) =>
+            {
+                wungusAura = HedgehogUtils.Assets.CreateSuperAura("WungusAura", new Color(0.8f, 0.4f, 0.8f), x.Result);
+            };
         }
     }
 }

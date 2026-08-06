@@ -40,7 +40,7 @@ namespace BungusSuperFormsMod
         public const string PluginGUID = "com.ds_gaming.BungusSuperForms";
         public const string PluginAuthor = "ds_gaming";
         public const string PluginName = "BungusSuperForms";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "2.0.0";
 
         public const string Prefix = "DS_GAMING_BUNGUS_SUPER_FORMS_";
 

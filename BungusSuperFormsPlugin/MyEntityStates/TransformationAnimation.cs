@@ -6,6 +6,7 @@ namespace BungusSuperFormsMod.MyEntityStates
     public class TransformationAnimation : HedgehogUtils.Forms.EntityStates.GenericTransformationBase
     {
         protected override float duration => 1.4f;
+        protected override float transformationDurationPercent => 0.5f;
 
         private static float cameraDistance = -7;
         private CharacterCameraParamsData cameraParams = new CharacterCameraParamsData

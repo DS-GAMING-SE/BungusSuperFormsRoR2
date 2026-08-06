@@ -13,6 +13,7 @@ namespace BungusSuperFormsMod.MyEntityStates
     public class WungusState : HedgehogUtils.Forms.EntityStates.FormStateBase
     {
         private TemporaryOverlayInstance temporaryOverlay;
+        private GameObject aura;
 
         protected HedgehogUtils.Boost.BoostLogic boostLogic;
 
@@ -23,6 +24,11 @@ namespace BungusSuperFormsMod.MyEntityStates
             Heal(1f);
             ApplyOverlay(ref temporaryOverlay, Assets.wungusSuperFormOverlay);
             Flash(0.5f);
+            Transform chest = base.FindModelChild("Chest");
+            if (chest)
+            {
+                this.aura = GameObject.Instantiate<GameObject>(Assets.wungusAura, chest);
+            }
 
             // This keeps the boost meter maxed and makes it look like the infinity symbol
             boostLogic = base.GetComponent<HedgehogUtils.Boost.BoostLogic>();
@@ -35,6 +41,7 @@ namespace BungusSuperFormsMod.MyEntityStates
         public override void OnExit()
         {
             RemoveOverlay(ref temporaryOverlay);
+            if (aura) Destroy(aura);
 
             Flash(0.5f);
 

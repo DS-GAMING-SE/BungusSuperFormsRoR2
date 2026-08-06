@@ -26,7 +26,7 @@ namespace BungusSuperFormsMod
             // Use HedgehogUtils.CopySkillDef, HedgehogUtils.CopyBoostSkillDef, or SonicTheHedgehog.Modules.SkillDefs.CopyMeleeSkillDef to copy the existing skilldef so you don't accidentally change the original skilldef
             // This is using the CopyBoostSkillDef method to convert Sonic's BoostSkillDef into a RequiresFormBoostSkillDef
             // SkillDefs of the RequiresFormSkillDef or RequiresFormBoostSkillDef type will automatically remove themselves if the character using it is not currently in the given form
-            wungusBoost = HedgehogUtils.Helpers.CopyBoostSkillDef<HedgehogUtils.Boost.SkillDefs.RequiresFormBoostSkillDef>(SonicTheHedgehog.Modules.Survivors.SonicSkillDefs.boostSkillDef);
+            wungusBoost = HedgehogUtils.Helpers.CopyBoostSkillDef<HedgehogUtils.Boost.SkillDefs.RequiresFormBoostSkillDef>(SonicTheHedgehog.Modules.Survivors.SonicTheHedgehogCharacter.boostSkillDef);
             wungusBoost.skillName = BungusSuperFormsPlugin.Prefix + "UTILITY_WUNGUS_BOOST_NAME";
             wungusBoost.skillNameToken = BungusSuperFormsPlugin.Prefix + "UTILITY_WUNGUS_BOOST_NAME";
             wungusBoost.skillDescriptionToken = BungusSuperFormsPlugin.Prefix + "UTILITY_WUNGUS_BOOST_DESCRIPTION";

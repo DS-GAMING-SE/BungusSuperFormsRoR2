@@ -8,6 +8,7 @@ using System;
 using EntityStates;
 using System.Collections.Generic;
 using BungusSuperFormsMod.MyEntityStates;
+using System.Runtime.CompilerServices;
 
 [assembly: HG.Reflection.SearchableAttribute.OptIn] // This line is required to make the SystemInitializer attribute run (see bottom of this file)
 namespace BungusSuperFormsMod
@@ -113,9 +114,10 @@ namespace BungusSuperFormsMod
                 new SerializableEntityStateType(), // Invalid entity state like this means there won't be a transformation animation, the transformation will be instant
 
                 // A dictionary containing the material and mesh swaps for characters who have a unique change in appearance when transforming
-                // This mod is designed to work even if Sonic isn't installed
-                // If Sonic isn't installed, the RenderDictionary for him isn't made because we can't access his mesh
-                BungusSuperFormsPlugin.sonicModLoaded ? CreateSonicRenderDictionary() : null,
+                // This requires the SkinDef of the skin we want to have a change in appearance
+                // For now, we set this to null
+                // We will use a SystemInitializer(BodyCatalog) method to get Sonic's default SkinDef once we know it is loaded
+                null,
 
                 // The type of FormHandler used to keep track of this form
                 // Put FormHandler here unless you need to custom make a formhandler, usually for extra specific transforming requirements that aren't covered normally
@@ -134,13 +136,25 @@ namespace BungusSuperFormsMod
                 wungusSuperFormDef
             });
         }
-
-        private static Dictionary<string, RenderReplacements> CreateSonicRenderDictionary()
+        [SystemInitializer(typeof(BodyCatalog))]
+        public static void TrySetRenderDictionary()
         {
-            return new Dictionary<string, RenderReplacements>
+            if (BungusSuperFormsPlugin.sonicModLoaded)
+            {
+                wungusSuperFormDef.renderDictionary = CreateSonicRenderDictionary();
+            }
+        }
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        private static Dictionary<SkinDef, RenderReplacements> CreateSonicRenderDictionary()
+        {
+            if (HedgehogUtils.Helpers.TryGetSkinDef("SonicTheHedgehog", "DEFAULT_SKIN", out var skin))
+            {
+                return new Dictionary<SkinDef, RenderReplacements>
                 {
-                    { "DS_GAMING_SONIC_THE_HEDGEHOG_BODY_DEFAULT_SKIN_NAME", new RenderReplacements { material = null, mesh = SonicTheHedgehog.Modules.Assets.superSonicMesh } }
+                    { skin, new RenderReplacements { rendererInfo = null, mesh = [SonicTheHedgehog.Modules.Assets.superSonicMesh] } }
                 };
+            }
+            return null;
         }
 
         // We need to define what items we are going to use for our forms AFTER all the items have been loaded

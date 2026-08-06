@@ -61,7 +61,7 @@ namespace BungusSuperFormsMod
         {
             if (body && body.skillLocator && body.skillLocator.utility)
             {
-                if (body.skillLocator.utility.baseSkill == SonicTheHedgehog.Modules.Survivors.SonicSkillDefs.boostSkillDef)
+                if (body.skillLocator.utility.baseSkill == SonicTheHedgehog.Modules.Survivors.SonicTheHedgehogCharacter.boostSkillDef)
                 {
                     body.skillLocator.utility.SetSkillOverride(this, SkillDefs.wungusBoost, GenericSkill.SkillOverridePriority.Upgrade);
                 }
