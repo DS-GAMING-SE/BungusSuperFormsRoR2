@@ -115,8 +115,7 @@ namespace BungusSuperFormsMod
 
                 // A dictionary containing the material and mesh swaps for characters who have a unique change in appearance when transforming
                 // This requires the SkinDef of the skin we want to have a change in appearance
-                // For now, we set this to null
-                // We will use a SystemInitializer(BodyCatalog) method to get Sonic's default SkinDef once we know it is loaded
+                // Since Sonic's SkinDef would be tricky to get access to, we'll set this to null for now, and use AddSkinForForm to get the skin using the skin's internal name
                 null,
 
                 // The type of FormHandler used to keep track of this form
@@ -135,26 +134,17 @@ namespace BungusSuperFormsMod
                 bungusSuperFormDef,
                 wungusSuperFormDef
             });
-        }
-        [SystemInitializer(typeof(BodyCatalog))]
-        public static void TrySetRenderDictionary()
-        {
+
             if (BungusSuperFormsPlugin.sonicModLoaded)
             {
-                wungusSuperFormDef.renderDictionary = CreateSonicRenderDictionary();
+                CreateSonicRenderDictionary();
             }
         }
+        // The MethodImpl will prevent issues that could occur if the Sonic mod is not installed
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-        private static Dictionary<SkinDef, RenderReplacements> CreateSonicRenderDictionary()
+        private static void CreateSonicRenderDictionary()
         {
-            if (HedgehogUtils.Helpers.TryGetSkinDef("SonicTheHedgehog", "DEFAULT_SKIN", out var skin))
-            {
-                return new Dictionary<SkinDef, RenderReplacements>
-                {
-                    { skin, new RenderReplacements { rendererInfo = null, mesh = [SonicTheHedgehog.Modules.Assets.superSonicMesh] } }
-                };
-            }
-            return null;
+            wungusSuperFormDef.AddSkinForForm("DS_GAMING_SONIC_THE_HEDGEHOG_DEFAULT_SKIN", new RenderReplacements { rendererInfo = null, mesh = [SonicTheHedgehog.Modules.Assets.superSonicMesh] });
         }
 
         // We need to define what items we are going to use for our forms AFTER all the items have been loaded
